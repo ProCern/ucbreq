@@ -9,7 +9,7 @@ with open('README.rst', 'r') as file:
 
 setup(
     name='req',
-    version='0.0.3',
+    version='1.0.0',
     description='Simple format for serialization, similar to json.  Not useful for most general use.',
     long_description=long_description,
     author='Taylor C. Richberger',
@@ -23,7 +23,7 @@ setup(
         'six',
         ],
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
