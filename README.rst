@@ -1,28 +1,26 @@
-# python-req
+python-req
+==========
+
 Simple python module for loading and dumping structures in req format, a very
 simple {string: (string|list(string))} format.
 
-Parses a structure like this:
+Parses a structure like this::
 
-```
-Foo|Bar
-Baz_1|alpha
-Baz_2|beta
-Baz_3|gamma
-```
+    Foo|Bar
+    Baz_1|alpha
+    Baz_2|beta
+    Baz_3|gamma
 
-into
+into::
     
-```python
-{
-    'Foo': 'Bar',
-    'Baz': [
-        'alpha',
-        'beta',
-        'gamma',
-    ],
-}
-```
+    {
+        'Foo': 'Bar',
+        'Baz': [
+            'alpha',
+            'beta',
+            'gamma',
+        ],
+    }
 
 The load and dump methods will maintain the encoding given and will not correct
 on errors.  If you pass a utf-8 filehandle to load, you'll get unicode output.
@@ -42,11 +40,14 @@ For structures parsed into lists, the logic is as such:
 
 * Any underscore and non-negative integer ending a key will automatically coerce
   into an list.
+
 * The actual values of the integers aren't important.  They will be ordered
   based on their decimal order.  Holes and starting index aren't bothered with.
+
 * If a field has an integer index given, but also has a non-indexed field of the
   same name, the non-indexed field will be given top precedence (essentially an
   index of -1)
+
 * Output of lists is 1-indexed by default, but this may be changed via a kwarg.
   If you need holes for whatever reason, you should pre-process the arrays into
   regular dict mappings.

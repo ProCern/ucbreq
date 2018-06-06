@@ -4,10 +4,14 @@
 
 from setuptools import setup
 
+with open('README.rst', 'r') as file:
+    long_description = file.read()
+
 setup(
     name='req',
-    version='0.0.1',
+    version='0.0.3',
     description='Simple format for serialization, similar to json.  Not useful for most general use.',
+    long_description=long_description,
     author='Taylor C. Richberger',
     author_email='tcr@absolute-performance.com',
     url='https://github.com/absperf/python-req',
