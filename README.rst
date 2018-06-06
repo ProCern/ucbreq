@@ -11,8 +11,10 @@ Parses a structure like this::
     Baz_2|beta
     Baz_3|gamma
 
-into::
+into:
     
+.. code-block:: python
+
     {
         'Foo': 'Bar',
         'Baz': [
