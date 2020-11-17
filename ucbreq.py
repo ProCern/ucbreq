@@ -1,9 +1,6 @@
-from __future__ import absolute_import, division, print_function
-import six
-
 from collections import Sequence
-from io import BytesIO
-from six.moves import cStringIO as StringIO
+from io import BytesIO, StringIO
+import codecs
 
 DEFAULT = object()
 
@@ -22,24 +19,27 @@ def dump(obj, fp, startindex=1, separator=DEFAULT, index_separator=DEFAULT):
     try:
         firstkey = next(iter(obj.keys()))
     except StopIteration:
-        return
+        return ''
 
-    if isinstance(firstkey, six.text_type):
-        converter = six.u
+    if isinstance(firstkey, str):
+        converter = str
     else:
-        converter = six.b
+        converter = codecs.encode
 
-    default_separator = converter('|')
-    default_index_separator = converter('_')
     newline = converter('\n')
 
     if separator is DEFAULT:
-        separator = default_separator
+        separator = converter('|')
     if index_separator is DEFAULT:
-        index_separator = default_index_separator
+        index_separator = converter('_')
 
-    for key, value in six.iteritems(obj):
-        if isinstance(value, (list, tuple, set)):
+    for key, value in obj.items():
+        if isinstance(value, (str, bytes)):
+            fp.write(key)
+            fp.write(separator)
+            fp.write(value)
+            fp.write(newline)
+        else:
             for index, item in enumerate(value, start=startindex):
                 fp.write(key)
                 fp.write(index_separator)
@@ -47,11 +47,6 @@ def dump(obj, fp, startindex=1, separator=DEFAULT, index_separator=DEFAULT):
                 fp.write(separator)
                 fp.write(item)
                 fp.write(newline)
-        else:
-            fp.write(key)
-            fp.write(separator)
-            fp.write(value)
-            fp.write(newline)
 
 def dumps(obj, startindex=1, separator=DEFAULT, index_separator=DEFAULT):
     '''Dump an object in req format to a string.
@@ -64,9 +59,9 @@ def dumps(obj, startindex=1, separator=DEFAULT, index_separator=DEFAULT):
     try:
         firstkey = next(iter(obj.keys()))
     except StopIteration:
-        return str()
+        return ''
 
-    if isinstance(firstkey, six.text_type):
+    if isinstance(firstkey, str):
         io = StringIO()
     else:
         io = BytesIO()
@@ -97,10 +92,11 @@ def load(fp, separator=DEFAULT, index_separator=DEFAULT, cls=dict, list_cls=list
 
     for line in fp:
         if converter is None:
-            if isinstance(line, six.text_type):
-                converter = six.u
+            if isinstance(line, str):
+                converter = str
             else:
-                converter = six.b
+                converter = codecs.encode
+
             default_separator = converter('|')
             default_index_separator = converter('_')
             newline = converter('\n')
@@ -145,7 +141,7 @@ def load(fp, separator=DEFAULT, index_separator=DEFAULT, cls=dict, list_cls=list
 
     # Convert array keys
     for key in arraykeys:
-        output[key] = list_cls(pair[1] for pair in sorted(six.iteritems(output[key])))
+        output[key] = list_cls(pair[1] for pair in sorted(output[key].items()))
 
     return output
 
@@ -160,7 +156,7 @@ def loads(s, separator=DEFAULT, index_separator=DEFAULT, cls=dict, list_cls=list
     :param list_cls: A callable that takes an iterable and returns a sequence.
     '''
 
-    if isinstance(s, six.text_type):
+    if isinstance(s, str):
         io = StringIO(s)
     else:
         io = BytesIO(s)

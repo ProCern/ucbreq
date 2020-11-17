@@ -35,8 +35,7 @@ the client side is undefined, and may be an explicit error in the future.
 Another undefined action is to embed newlines in any strings.
 
 The only truly ambiguous case is dumps when given an empty dict.  In this case,
-dumps will return an empty str object, which is unicode on Python 3 and bytes on
-Python 2.
+dumps will return an empty str object.
 
 For structures parsed into lists, the logic is as such:
 
