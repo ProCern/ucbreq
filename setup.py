@@ -9,7 +9,7 @@ with open('README.rst', 'r') as file:
 
 setup(
     name='ucbreq',
-    version='1.0.0',
+    version='1.0.1',
     description='Simple format for serialization, similar to CSV.  Not useful for most general use.',
     long_description=long_description,
     author='Taylor C. Richberger',
