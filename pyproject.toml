@@ -20,7 +20,7 @@ name = "Taylor C. Richberger"
 email = "tcr@absolute-performance.com"
 
 [project.urls]
-repository  = ['https://github.com/absperf/python-req']
+repository  = 'https://github.com/absperf/python-req'
 
 [build-system]
 build-backend = "flit_core.buildapi"
