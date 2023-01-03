@@ -1,7 +1,7 @@
 [project]
 name = 'ucbreq'
 description = 'Simple format for serialization, similar to CSV.  Not useful for most general use.'
-version = '2.0.0'
+version = '2.0.1'
 readme = 'README.rst'
 requires-python = '>= 3.5, < 4'
 classifiers = [
@@ -20,7 +20,7 @@ name = "Taylor C. Richberger"
 email = "tcr@absolute-performance.com"
 
 [project.urls]
-repository  = 'https://github.com/absperf/python-req'
+repository  = 'https://github.com/absperf/ucbreq'
 
 [build-system]
 build-backend = "flit_core.buildapi"
