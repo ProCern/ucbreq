@@ -1,3 +1,12 @@
+'''Mostly useless serialization format.
+
+This is a format based on a series of keys and values, and optional list
+values.
+
+Effectively, the format is a list of ``key|value`` lines, where keys may be
+made into a list by either repeating them or suffixing them with an _1 index,
+incrementing.
+'''
 from collections.abc import Sequence
 from io import BytesIO, StringIO
 import codecs

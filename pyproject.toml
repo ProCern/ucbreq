@@ -1,7 +1,7 @@
 [project]
 name = 'ucbreq'
 description = 'Simple format for serialization, similar to CSV.  Not useful for most general use.'
-version = '2.0.1'
+version = '2.0.2'
 readme = 'README.rst'
 requires-python = '>= 3.5, < 4'
 classifiers = [
