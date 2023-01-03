@@ -136,8 +136,6 @@ def load(
 
     work = work_dict_class()
 
-    output = dict_class()
-
     for line in fp:
         line = line.strip()
         if line:
@@ -147,15 +145,17 @@ def load(
 
             try:
                 index = int(keyparts[1])
-                key = keyparts[0]
+
+                work_key = keyparts[0]
             except (ValueError, IndexError):
                 index = None
+                work_key = key
 
-            if key in work:
-                work_value = work[key]
+            if work_key in work:
+                work_value = work[work_key]
             else:
                 work_value = WorkValue()
-                work[key] = work_value
+                work[work_key] = work_value
 
             if index is None:
                 work_value.plain.append(value)
@@ -164,7 +164,15 @@ def load(
                 work_value.indexed.append((index, value))
 
                 if keep_originals:
-                    output[key] = value
+                    if key in work:
+                        work_value = work[key]
+                    else:
+                        work_value = WorkValue()
+                        work[key] = work_value
+                    work_value.plain.append(value)
+
+    output = dict_class()
+
 
     for key, work_value in work.items():
         output[key] = work_value.value(list_class=list_class)
