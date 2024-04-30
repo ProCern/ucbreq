@@ -8,9 +8,8 @@ made into a list by either repeating them or suffixing them with an _1 index,
 incrementing.
 '''
 from collections.abc import Sequence
-from io import BytesIO, StringIO
-import codecs
-from typing import Dict, Union, Generic, TypeVar, Mapping, Sequence, TextIO, Optional, Tuple, Callable, MutableMapping, MutableSequence, cast, NamedTuple, List
+from io import StringIO
+from typing import Union, Mapping, Sequence, TextIO, Optional, Tuple, Callable, MutableMapping, MutableSequence, List
 
 ValueList = Sequence[str]
 Value = Union[str, ValueList]
@@ -33,7 +32,7 @@ class WorkValue:
     def __init__(
         self,
         plain: Optional[MutableSequence] = None,
-        indexed: Optional[List[Tuple[int, str]]] = None):
+        indexed: Optional[List[Tuple[int, str]]] = None) -> None:
         if plain is None:
             plain = []
         if indexed is None:
@@ -90,7 +89,7 @@ def dump(obj: Object, fp: TextIO, startindex: int = 1, separator: str = '|', ind
 
     for key, value in obj.items():
         if isinstance(value, str):
-            if not key in keys:
+            if key not in keys:
                 fp.write(key)
                 fp.write(separator)
                 fp.write(value)
@@ -99,7 +98,7 @@ def dump(obj: Object, fp: TextIO, startindex: int = 1, separator: str = '|', ind
         else:
             for index, item in enumerate(value, start=startindex):
                 k = index_separator.join((key, str(index)))
-                if not k in keys:
+                if k not in keys:
                     fp.write(k)
                     fp.write(separator)
                     fp.write(item)
