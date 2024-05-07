@@ -1,7 +1,7 @@
 [project]
 name = 'ucbreq'
 description = 'Simple format for serialization, similar to CSV.  Not useful for most general use.'
-version = '2.0.4'
+version = '2.0.5'
 readme = 'README.rst'
 requires-python = '>= 3.5, < 4'
 classifiers = [
@@ -17,10 +17,10 @@ classifiers = [
 
 [[project.authors]]
 name = "Taylor C. Richberger"
-email = "tcr@absolute-performance.com"
+email = "taylor.richberger@procern.com"
 
 [project.urls]
-repository  = 'https://github.com/absperf/ucbreq'
+repository  = 'https://github.com/ProCern/ucbreq'
 documentation = 'https://ucbreq.readthedocs.io/'
 
 [build-system]
